@@ -1,0 +1,16 @@
+{
+  "name": "alba_blockchain",
+  "version": "1.0.0",
+  "description": "API Rest para almacenamiento de información de sensores en blockchain",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "blockchain",
+    "eos",
+    "api_rest"
+  ],
+  "author": "Eugenio Romero Ciudad",
+  "license": "ISC"
+}
