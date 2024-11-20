@@ -1,0 +1,32 @@
+@startuml
+actor Sensor
+participant "API REST" as API
+database "Base de Datos MySQL" as DB
+participant "Contrato Inteligente" as Contract
+actor "Blockchain EOS" as Blockchain
+
+Sensor -> API: Transmitir datos
+activate API
+
+API -> DB: Almacenar datos
+activate DB
+DB -> DB: Encriptar datos
+DB --> API: Confirmación de almacenamiento
+
+API -> API: Calcular hash de datos
+
+API -> Contract: Registrar hash
+activate Contract
+Contract -> Blockchain: Almacenar hash
+activate Blockchain
+Blockchain --> Contract: ID de transacción
+deactivate Blockchain
+Contract --> API: ID de transacción
+deactivate Contract
+API -> DB: Almacenar ID de transacción
+DB -> API: Confirmación de registro
+deactivate DB
+
+API --> Sensor: Confirmación
+deactivate API
+@enduml
