@@ -1,0 +1,28 @@
+@startuml
+!define RECTANGLE class
+
+skinparam component {
+  BackgroundColor<<API>> LightBlue
+  BackgroundColor<<External>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+}
+
+component "Sensores" <<External>> as Sensors
+component "API REST" <<API>> as API {
+  rectangle "Controllers" as Controllers
+  rectangle "Services" as Services
+  rectangle "Models" as Models
+  rectangle "DAOs" as DAOs
+}
+database "Base de Datos" <<Database>> as Database
+cloud "Blockchain EOS" <<External>> as Blockchain
+
+Sensors -right-> API : "HTTP POST"
+Controllers -down-> Services
+Services -down-> Models
+Services -down-> DAOs
+DAOs -right-> Database : "SQL Queries"
+DAOs -left-> Blockchain : "Transacciones"
+Models ..> DAOs : "Utiliza"
+
+@enduml
