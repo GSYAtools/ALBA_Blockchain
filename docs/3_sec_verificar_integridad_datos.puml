@@ -1,0 +1,36 @@
+@startuml
+actor "Administrador del Sistema" as Admin
+participant "API REST" as API
+database "Base de Datos MySQL" as DB
+participant "Contrato Inteligente" as Contract
+actor "Blockchain EOS" as Blockchain
+
+Admin -> API: Solicitar verificación de integridad
+activate API
+
+API -> DB: Recuperar datos
+activate DB
+DB --> API: Datos almacenados
+deactivate DB
+
+API -> API: Calcular hash de datos
+
+API -> Contract: Solicitar hash almacenado
+activate Contract
+Contract -> Blockchain: Recuperar hash
+activate Blockchain
+Blockchain --> Contract: Hash almacenado
+deactivate Blockchain
+Contract --> API: Hash almacenado
+deactivate Contract
+
+API -> API: Comparar hashes
+
+alt Hashes coinciden
+    API --> Admin: Integridad verificada
+else Hashes no coinciden
+    API --> Admin: Alerta de integridad comprometida
+end
+
+deactivate API
+@enduml
