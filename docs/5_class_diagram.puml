@@ -1,0 +1,79 @@
+@startuml
+package "API REST" {
+    package "Controllers" {
+        class DatoController {
+            +recibirDatos()
+            +verificarIntegridad()
+        }
+    }
+    
+    package "Services" {
+        class DatoService {
+            +procesarDatos()
+            +almacenarDatos()
+            +verificarIntegridad()
+        }
+    }
+    
+    package "Models" {
+        class Dato {
+            -id: int
+            -sensorId: int
+            -timestamp: DateTime
+            -valor: float
+            -unidad: String
+        }
+    }
+    
+    package "DAOs" {
+        class DatoDAO {
+            +create()
+            +findBySensor()
+        }
+
+        class BlockchainDAO {
+            +registrarHash()
+            +verificarIntegridad()
+        }
+    }
+
+    package "Configuración" {
+        class Config {
+            -dbConfig: Object
+            -blockchainConfig: Object
+        }
+    }
+}
+
+package "Sensores" <<External>> {
+    class Sensor {
+        -id: int
+        -tipo: String
+        +recolectarDatos()
+        +enviarDatos()
+    }
+}
+
+package "Base de Datos" <<Database>> {
+    class DatabaseConnection {
+        +connect()
+        +disconnect()
+    }
+}
+
+package "Blockchain" <<External>> {
+    class BlockchainConnection {
+        +connect()
+        +disconnect()
+    }
+}
+
+' Relaciones entre paquetes
+Sensor --> DatoController : "POST /datos"
+DatoController --> DatoService
+DatoService --> DatoDAO
+DatoService --> BlockchainDAO
+DatoDAO --> DatabaseConnection : "SQL Queries"
+BlockchainDAO --> BlockchainConnection : "Transacciones"
+
+@enduml
