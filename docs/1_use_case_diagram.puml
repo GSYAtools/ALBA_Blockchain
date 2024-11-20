@@ -2,11 +2,13 @@
 left to right direction
 actor Sensor
 actor "Administrador del Sistema" as Admin
+database "Base de Datos" as DB
+cloud "Blockchain" as Blockchain
 
 rectangle "Sistema de Sensores con Blockchain" {
   usecase "Transmitir datos" as UC1
   usecase "Almacenar datos en MySQL" as UC2
-  usecase "Registrar hash en blockchain" as UC3
+  usecase "Registrar hash en Blockchain" as UC3
   usecase "Verificar integridad de datos" as UC4
   usecase "Consultar datos" as UC5
   usecase "Gestionar claves" as UC6
@@ -15,9 +17,18 @@ rectangle "Sistema de Sensores con Blockchain" {
 
 Sensor --> UC1
 UC1 ..> UC2 : <<include>>
+UC2 ..> DB
 UC2 ..> UC3 : <<include>>
+UC3 ..> Blockchain
+
 Admin --> UC4
+UC4 ..> Blockchain
+UC4 ..> DB
+
 Admin --> UC5
+UC5 ..> DB
+
 Admin --> UC6
 Admin --> UC7
+
 @enduml
