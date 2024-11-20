@@ -1,0 +1,23 @@
+@startuml
+left to right direction
+actor Sensor
+actor "Administrador del Sistema" as Admin
+
+rectangle "Sistema de Sensores con Blockchain" {
+  usecase "Transmitir datos" as UC1
+  usecase "Almacenar datos en MySQL" as UC2
+  usecase "Registrar hash en blockchain" as UC3
+  usecase "Verificar integridad de datos" as UC4
+  usecase "Consultar datos" as UC5
+  usecase "Gestionar claves" as UC6
+  usecase "Monitorear sistema" as UC7
+}
+
+Sensor --> UC1
+UC1 ..> UC2 : <<include>>
+UC2 ..> UC3 : <<include>>
+Admin --> UC4
+Admin --> UC5
+Admin --> UC6
+Admin --> UC7
+@enduml
