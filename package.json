@@ -4,7 +4,7 @@
   "description": "API Rest para almacenamiento de información de sensores en blockchain",
   "main": "server.js",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "keywords": [
     "blockchain",
@@ -18,7 +18,7 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "chai": "^5.1.2",
-    "mocha": "^10.8.2"
+    "jest": "^29.7.0",
+    "sinon": "^19.0.2"
   }
 }
